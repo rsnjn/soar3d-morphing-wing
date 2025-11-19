@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SOAR3D Morphing Wing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 40px; }
+    .slider { width: 300px; }
+  </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+</head>
+
+<body>
+  <h1>SOAR3D Morphing Wing</h1>
+
+  <input type="range" min="0" max="100" value="0" class="slider" id="morphSlider">
+  <p>Morphing: <span id="value">0</span>%</p>
+
+  <script>
+    // TODO: Replace with your Firebase config
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "",
+      databaseURL: "",
+      projectId: "",
+      storageBucket: "",
+      messagingSenderId: "",
+      appId: ""
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const slider = document.getElementById("morphSlider");
+    const label = document.getElementById("value");
+
+    slider.oninput = () => {
+      label.innerHTML = slider.value;
+      db.ref("morphing/value").set(Number(slider.value));
+    };
+  </script>
+</body>
+</html>
